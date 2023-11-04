@@ -1,7 +1,6 @@
 package com.halilkrkn.usersapi.service;
 
 import com.halilkrkn.usersapi.data.dto.UserDto;
-import com.halilkrkn.usersapi.model.User;
 
 import java.util.List;
 

@@ -5,7 +5,6 @@ import com.halilkrkn.usersapi.data.mapper.ModelMapperService;
 import com.halilkrkn.usersapi.data.repository.UserRepository;
 import com.halilkrkn.usersapi.model.User;
 import lombok.AllArgsConstructor;
-import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
