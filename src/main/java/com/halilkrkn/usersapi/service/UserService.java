@@ -8,7 +8,6 @@ import java.util.Optional;
 
 
 public interface UserService {
-
     UserDto addUser(UserDto userDto);
 
     List<UserDto> findAll();
@@ -17,13 +16,5 @@ public interface UserService {
 
     UserDto updateUser(Integer id, UserDto userDto);
 
-    void userUpdates(UserDto userDto);
-
-    UserDto deleteUser(Integer id);
-
-
-
-    // Model Mapper
-//    public  EmployeeDto entityToDto(EmployeeEntity employeeEntity);
-//    public  EmployeeEntity dtoToEntity(EmployeeDto employeeDto);
+    UserDto deleteByIdUser(Integer id);
 }

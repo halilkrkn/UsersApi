@@ -69,15 +69,9 @@ public class UserServiceImpl implements UserService {
         return modelMapperService.entityToDto().map(user, UserDto.class);
     }
 
-    @Override
-    public void userUpdates(UserDto userDto) {
-        User user = modelMapperService.dtoToEntity().map(userDto, User.class);
-        userRepository.save(user);
-    }
-
     // Delete İşlemi
     @Override
-    public UserDto deleteUser(Integer id) {
+    public UserDto deleteByIdUser(Integer id) {
         User user = userRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("User not found with id: "+ id));
         userRepository.deleteById(id);
         return modelMapperService.entityToDto().map(user, UserDto.class);

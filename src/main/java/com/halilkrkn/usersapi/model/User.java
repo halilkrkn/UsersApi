@@ -13,7 +13,7 @@ import java.io.Serializable;
 @Table(name = "users")
 @NamedQuery(name = "User.findByEmail", query = "SELECT u FROM User u WHERE u.email = ?1")
 @NamedQuery(name = "User.findAll", query = "SELECT u FROM User u")
-//@NamedQuery(name = "User.deleteById", query = "DELETE FROM User u WHERE u.id = ?1")
+@NamedQuery(name = "User.deleteById", query = "DELETE FROM User u WHERE u.id = ?1")
 public class User implements Serializable {
 
     @Id

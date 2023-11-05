@@ -42,15 +42,8 @@ public class UsersController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<UserDto> deleteUser(@PathVariable Integer id) {
-        UserDto deleteUser = userService.deleteUser(id);
+    public ResponseEntity<UserDto> deleteByIdUser(@PathVariable Integer id) {
+        UserDto deleteUser = userService.deleteByIdUser(id);
         return ResponseEntity.ok(deleteUser);
     }
-
-    @PutMapping
-    public ResponseEntity<UserDto> userUpdates(@RequestBody UserDto userDto) {
-        userService.userUpdates(userDto);
-        return ResponseEntity.ok(userDto);
-    }
-
 }
