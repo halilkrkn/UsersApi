@@ -19,8 +19,6 @@ public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
     private final ModelMapperService modelMapperService;
 
-
-    // Add İşlemi
     @Override
     public UserDto addUser(UserDto userDto) {
         User user = modelMapperService.dtoToEntity().map(userDto, User.class);
@@ -33,7 +31,6 @@ public class UserServiceImpl implements UserService {
         return userDto;
     }
 
-    // List İşlemi
     @Override
     public List<UserDto> findAll() {
         List<User> userList = userRepository.findAll();
@@ -42,22 +39,19 @@ public class UserServiceImpl implements UserService {
         return userDtoList;
     }
 
-
-    // Find İşlemi
     @Override
     public Optional<UserDto> findById(Integer id) {
         Optional<User> userOptional = userRepository.findById(id);
         if (userOptional.isEmpty()) {
-            throw new ResourceNotFoundException("User not found with id: "+ id);
+            throw new ResourceNotFoundException("User not found with id: " + id);
         }
         return userRepository.findById(id).map(user -> modelMapperService.entityToDto().map(user, UserDto.class));
     }
 
-    // Update İşlemi
     @Override
     public UserDto updateUser(Integer id, UserDto userDto) {
         User userUpdate = modelMapperService.dtoToEntity().map(userDto, User.class);
-        User userUpdateFindById = userRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("User not exist with id: "+ id));
+        User userUpdateFindById = userRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("User not exist with id: " + id));
         userUpdateFindById.setName(userUpdate.getName());
         userUpdateFindById.setSurname(userUpdate.getSurname());
         userUpdateFindById.setEmail(userUpdate.getEmail());
@@ -68,11 +62,9 @@ public class UserServiceImpl implements UserService {
         return modelMapperService.entityToDto().map(user, UserDto.class);
     }
 
-
-    // Delete İşlemi
     @Override
     public UserDto deleteByIdUser(Integer id) {
-        User user = userRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("User not found with id: "+ id));
+        User user = userRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("User not found with id: " + id));
         userRepository.deleteById(id);
         return modelMapperService.entityToDto().map(user, UserDto.class);
     }

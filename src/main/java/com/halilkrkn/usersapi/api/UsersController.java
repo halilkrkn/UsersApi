@@ -1,7 +1,6 @@
 package com.halilkrkn.usersapi.api;
 
 import com.halilkrkn.usersapi.data.dto.UserDto;
-import com.halilkrkn.usersapi.model.User;
 import com.halilkrkn.usersapi.service.UserService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;

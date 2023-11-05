@@ -13,7 +13,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Builder
 public class UserDto {
-
     @NotNull(message = "Id cannot be null")
     @NotBlank(message = "Id cannot be blank")
     private Integer id;

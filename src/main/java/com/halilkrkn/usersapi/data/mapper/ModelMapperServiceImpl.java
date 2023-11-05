@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 public class ModelMapperServiceImpl implements ModelMapperService {
 
     private final ModelMapper modelMapper;
+
     @Override
     public ModelMapper entityToDto() {
         this.modelMapper

@@ -73,7 +73,7 @@ class UsersControllerTest {
                 .build();
 
         // When
-        when(userService.addUser(any(UserDto.class))).thenReturn( null);
+        when(userService.addUser(any(UserDto.class))).thenReturn(null);
 
         // Then
         mockMvc.perform(post("/api/v1/users")
