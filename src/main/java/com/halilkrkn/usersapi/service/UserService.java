@@ -8,6 +8,7 @@ import java.util.Optional;
 
 
 public interface UserService {
+
     UserDto addUser(UserDto userDto);
 
     List<UserDto> findAll();

@@ -11,6 +11,7 @@ import java.io.Serializable;
 @EqualsAndHashCode
 @Entity
 @Table(name = "users")
+@Builder
 @NamedQuery(name = "User.findByEmail", query = "SELECT u FROM User u WHERE u.email = ?1")
 @NamedQuery(name = "User.findAll", query = "SELECT u FROM User u")
 @NamedQuery(name = "User.deleteById", query = "DELETE FROM User u WHERE u.id = ?1")

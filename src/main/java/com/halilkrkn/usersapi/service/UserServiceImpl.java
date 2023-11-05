@@ -8,7 +8,6 @@ import com.halilkrkn.usersapi.model.User;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.lang.module.ResolutionException;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -68,6 +67,7 @@ public class UserServiceImpl implements UserService {
 
         return modelMapperService.entityToDto().map(user, UserDto.class);
     }
+
 
     // Delete İşlemi
     @Override
