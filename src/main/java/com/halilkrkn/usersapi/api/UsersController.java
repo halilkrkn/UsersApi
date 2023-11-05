@@ -15,6 +15,7 @@ import java.util.Optional;
 @RequestMapping("/api/v1/users")
 @AllArgsConstructor
 // örnek url: http://localhost:8080/api/v1/users
+// Örnek Swagger url: http://localhost:8080/swagger-ui.html
 public class UsersController {
     private UserService userService;
 
