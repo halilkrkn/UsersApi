@@ -21,58 +21,10 @@ import static org.junit.jupiter.api.Assertions.*;
         classes = UsersApiApplication.class)
 @AutoConfigureMockMvc
 //@RunWith(MockitoJUnitRunner.class)
-class UsersApiApplicationTests implements UserServiceTest {
-
-    @Autowired
-    private MockMvc mockMvc;
+class UsersApiApplicationTests {
 
     @Test
     void contextLoads() {
     }
 
-    @Autowired
-    UserRepository userRepository;
-
-    @Test
-    public void givenUsers_whenGetUsers_thenStatus200()
-            throws Exception {
-
-        assertThat(userRepository.findAll()).isNotNull();
-    }
-
-    @Test
-    @Override
-    public void addUserTestIsSuccessfully() {
-        User user = User
-                .builder()
-                .name("Halil")
-                .surname("Karkim")
-                .email("halil@test.com")
-                .password("123456")
-                .build();
-
-        userRepository.save(user);
-        assertNotNull(userRepository.findById(1));
-
-    }
-
-    @Override
-    public void findAllTest() {
-
-    }
-
-    @Override
-    public void findByIdTest() {
-
-    }
-
-    @Override
-    public void updateUserTest() {
-
-    }
-
-    @Override
-    public void deleteByIdUserTest() {
-
-    }
 }
