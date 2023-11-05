@@ -28,9 +28,14 @@ public class User implements Serializable {
             strategy = GenerationType.IDENTITY,
             generator = "customer_id_sequence"
     )
+    @Column(name = "id", nullable = false)
     private Integer id;
+    @Column(name = "name", nullable = false)
     private String name;
+    @Column(name = "surname", nullable = false)
     private String surname;
+    @Column(name = "email", nullable = false)
     private String email;
+    @Column(name = "password", nullable = false)
     private String password;
 }

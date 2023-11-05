@@ -73,7 +73,7 @@ class UsersControllerTest {
                 .build();
 
         // When
-        when(userService.addUser(any(UserDto.class))).thenReturn(userDto);
+        when(userService.addUser(any(UserDto.class))).thenReturn( null);
 
         // Then
         mockMvc.perform(post("/api/v1/users")
@@ -197,8 +197,7 @@ class UsersControllerTest {
                 .build();
 
         // When
-        when(userService.updateUser(any(Integer.class), any(UserDto.class))).thenReturn(userDto);
-
+        when(userService.updateUser(userId, userDto)).thenReturn(userDto);
         // Then
         mockMvc.perform(put("/api/v1/users/{id}", userId)
                         .contentType(MediaType.APPLICATION_JSON)
@@ -217,8 +216,11 @@ class UsersControllerTest {
         int userId = 1;
         UserDto userDto = UserDto
                 .builder()
-                .id(1)
-                .name("")
+                .id(null)
+                .name("Halil")
+                .surname("Karkin")
+                .email("halil@test.com")
+                .password("123456")
                 .build();
 
         // When
@@ -237,7 +239,7 @@ class UsersControllerTest {
         int userId = 1;
         UserDto userDto = UserDto
                 .builder()
-                .id(1)
+                .id(userId)
                 .name("Halil")
                 .surname("Karkin")
                 .email("halil@test.com")
@@ -245,12 +247,37 @@ class UsersControllerTest {
                 .build();
 
         // When
-        when(userService.deleteByIdUser(any(Integer.class))).thenReturn(userDto);
+        when(userService.deleteByIdUser(userId)).thenReturn(userDto);
 
         // Then
         mockMvc.perform(delete("/api/v1/users/{id}", userId)
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(new ObjectMapper().writeValueAsString(userDto)))
+                .andExpect(status().isNoContent());
+    }
+
+    @Test
+    public void givenUserId_whenDeleteByIdUser_thenReturnDeletedUser_notFound_404() throws Exception {
+        // Given
+        int userId = 1;
+        int notUserId = 2;
+        UserDto userDto = UserDto
+                .builder()
+                .id(null)
+                .name("Halil")
+                .surname("Karkin")
+                .email("halil@test.com")
+                .password("123456")
+                .build();
+
+        // When
+        when(userService.deleteByIdUser(userId)).thenReturn(userDto);
+
+        // Then
+        mockMvc.perform(delete("/api/v1/users/{id}", 1)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(new ObjectMapper().writeValueAsString(userDto)))
                 .andExpect(status().isNotFound());
+
     }
 }

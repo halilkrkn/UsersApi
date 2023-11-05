@@ -21,10 +21,11 @@ public class UsersController {
     @PostMapping
     public ResponseEntity<UserDto> addUser(@RequestBody UserDto userDto) {
         UserDto addUser = userService.addUser(userDto);
-        if (addUser == null) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+        if (addUser != null) {
+            return ResponseEntity.ok(addUser);
         }
-        return ResponseEntity.ok(addUser);
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+
     }
 
     @GetMapping
@@ -48,16 +49,20 @@ public class UsersController {
     @PutMapping("/{id}")
     public ResponseEntity<UserDto> updateUser(@PathVariable Integer id, @RequestBody UserDto userDto) {
         UserDto updateUser = userService.updateUser(id, userDto);
-        Optional<UserDto> user = userService.findById(id);
-        if (user.isEmpty()) {
+//        Optional<UserDto> user = userService.findById(id);
+        if (updateUser.getId() == null) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
         }
         return ResponseEntity.ok(updateUser);
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<UserDto> deleteByIdUser(@PathVariable Integer id) {
-        UserDto deleteUser = userService.deleteByIdUser(id);
-        return ResponseEntity.ok(deleteUser);
+    public ResponseEntity<Void> deleteByIdUser(@PathVariable Integer id) {
+        UserDto deleted = userService.deleteByIdUser(id);
+        if (deleted.getId() != null) {
+            return ResponseEntity.noContent().build();
+        } else {
+            return ResponseEntity.notFound().build();
+        }
     }
 }
