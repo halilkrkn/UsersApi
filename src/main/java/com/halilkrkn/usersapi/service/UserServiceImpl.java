@@ -3,6 +3,7 @@ package com.halilkrkn.usersapi.service;
 import com.halilkrkn.usersapi.data.dto.UserDto;
 import com.halilkrkn.usersapi.data.mapper.ModelMapperService;
 import com.halilkrkn.usersapi.data.repository.UserRepository;
+import com.halilkrkn.usersapi.exception.ResourceNotFoundException;
 import com.halilkrkn.usersapi.model.User;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -26,7 +27,7 @@ public class UserServiceImpl implements UserService {
         User user = modelMapperService.dtoToEntity().map(userDto, User.class);
         Optional<User> userOptional = userRepository.findByEmail(user.getEmail());
         if (userOptional.isPresent()) {
-            throw new ResolutionException("Email is already taken");
+            throw new ResourceNotFoundException("Email is already taken");
 
         }
         userRepository.save(user);
@@ -48,7 +49,7 @@ public class UserServiceImpl implements UserService {
     public Optional<UserDto> findById(Integer id) {
         Optional<User> userOptional = userRepository.findById(id);
         if (userOptional.isEmpty()) {
-            throw new IllegalStateException("User not found with id: "+ id);
+            throw new ResourceNotFoundException("User not found with id: "+ id);
         }
         return userRepository.findById(id).map(user -> modelMapperService.entityToDto().map(user, UserDto.class));
     }
@@ -56,25 +57,29 @@ public class UserServiceImpl implements UserService {
     // Update İşlemi
     @Override
     public UserDto updateUser(Integer id, UserDto userDto) {
+        User userUpdate = modelMapperService.dtoToEntity().map(userDto, User.class);
+        User userUpdateFindById = userRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("User not exist with id: "+ id));
+        userUpdateFindById.setName(userUpdate.getName());
+        userUpdateFindById.setSurname(userUpdate.getSurname());
+        userUpdateFindById.setEmail(userUpdate.getEmail());
+        userUpdateFindById.setPassword(userUpdate.getPassword());
+
+        User user = userRepository.save(userUpdateFindById);
+
+        return modelMapperService.entityToDto().map(user, UserDto.class);
+    }
+
+    @Override
+    public void userUpdates(UserDto userDto) {
         User user = modelMapperService.dtoToEntity().map(userDto, User.class);
-        User userUpdateFindById = userRepository.findById(id).orElseThrow(() -> new IllegalStateException("User not exist with id: "+ id));
-        userUpdateFindById.setName(user.getName());
-        userUpdateFindById.setSurname(user.getSurname());
-        userUpdateFindById.setEmail(user.getEmail());
-        userUpdateFindById.setPassword(user.getPassword());
-
-        User userUpdate = userRepository.save(userUpdateFindById);
-        UserDto userDtoUpdate = modelMapperService.entityToDto().map(userUpdate, UserDto.class);
-
-        return userDtoUpdate;
+        userRepository.save(user);
     }
 
     // Delete İşlemi
     @Override
     public UserDto deleteUser(Integer id) {
-        User user = userRepository.findById(id).orElseThrow(() -> new IllegalStateException("User not found with id: "+ id));
+        User user = userRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("User not found with id: "+ id));
         userRepository.deleteById(id);
-        UserDto userDeleteDto = modelMapperService.entityToDto().map(user, UserDto.class);
-        return userDeleteDto;
+        return modelMapperService.entityToDto().map(user, UserDto.class);
     }
 }

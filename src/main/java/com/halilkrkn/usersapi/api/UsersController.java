@@ -46,4 +46,11 @@ public class UsersController {
         UserDto deleteUser = userService.deleteUser(id);
         return ResponseEntity.ok(deleteUser);
     }
+
+    @PutMapping
+    public ResponseEntity<UserDto> userUpdates(@RequestBody UserDto userDto) {
+        userService.userUpdates(userDto);
+        return ResponseEntity.ok(userDto);
+    }
+
 }
