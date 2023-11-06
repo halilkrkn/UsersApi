@@ -11,7 +11,6 @@ import org.springframework.test.context.junit4.SpringRunner;
         webEnvironment = SpringBootTest.WebEnvironment.MOCK,
         classes = UsersApiApplication.class)
 @AutoConfigureMockMvc
-//@RunWith(MockitoJUnitRunner.class)
 class UsersApiApplicationTests {
     @Test
     void contextLoads() {
